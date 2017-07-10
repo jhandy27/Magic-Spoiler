@@ -37,14 +37,6 @@ echo TRAVIS_PULL_REQUEST ${TRAVIS_PULL_REQUEST}
 echo TRAVIS_SECURE_ENV_VARS ${TRAVIS_SECURE_ENV_VARS}
 echo TRAVIS_EVENT_TYPE ${TRAVIS_EVENT_TYPE}
 
-# Don't push to our branch for PRs.
-#if [ "${ghToken:-false}" != "false" ]; then
-#    doCompile
-#else
-#    doCompile
-#    exit 0
-#fi
-
 # Now let's go have some fun with the cloned repo
 cd out
 ls
@@ -52,15 +44,18 @@ git config user.name "Travis CI"
 git config user.email "$COMMIT_AUTHOR_EMAIL"
 
 # If there are no changes to the compiled out (e.g. this is a README update) then just bail.
-#if git diff --quiet; then
-#    echo "No changes to the output on this push; exiting."
-#    exit 0
-#fi
+if git diff --quiet files HEAD -- spoiler.json; then # spoiler.xml always has a "date created" change
+    echo "No changes to spoiler.json on this push; exiting."
+    exit 0
+fi
+#######
+# TODO idea: additionally, if errors.json has output --> no deploy as well
+#######
 
 # Commit the "changes", i.e. the new version.
 # The delta will show diffs between new and old versions.
 git add -A .
-git commit --allow-empty -m "Deploy to GitHub: ${SHA}"
+git commit -m "Deploy to GitHub: ${SHA}"
 
 # Get the deploy key by using Travis's stored variables to decrypt deploy_key.enc
 ENCRYPTED_KEY_VAR="encrypted_${ENCRYPTION_LABEL}_key"
