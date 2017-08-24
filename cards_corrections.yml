@@ -59,10 +59,6 @@
 # url: http://wizards.c0m/link/to/card.png                              #
 #                                                                       #
 #########################################################################
-# never remove this part of the file, since it will break otherwise     #
-corrections:                                                            #
-  - must not be empty!                                                  #
-#########################################################################
 
 # Enter cards with their corrections below. But note the syntax hints on top!
 
