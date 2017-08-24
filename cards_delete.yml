@@ -25,10 +25,6 @@
 #  - " Tocaf's Honor Guard "                                            #
 #                                                                       #
 #########################################################################
-# never remove this part of the file, since it will break otherwise     #
-delete:                                                                 #
-  - must not be empty!                                                  #
-#########################################################################
 
 # Enter cards that should be deleted below. But note the syntax hints on top!
 
